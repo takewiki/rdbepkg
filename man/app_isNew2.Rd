@@ -4,12 +4,12 @@
 \alias{app_isNew2}
 \title{检验程序是否存在}
 \usage{
-app_isNew2(app_name = "appTpl", token = "36F0DB19-AC55-4062-B2DA-39DC39B297BE")
+app_isNew2(token = "36F0DB19-AC55-4062-B2DA-39DC39B297BE", app_name = "appTpl")
 }
 \arguments{
-\item{app_name}{程序名}
-
 \item{token}{口令}
+
+\item{app_name}{程序名}
 }
 \value{
 返回值
