@@ -17,6 +17,7 @@ app_isNew  <- function(app_name ='appTpl') {
   }else{
     res <- TRUE
   }
+  return(res)
 
 }
 
@@ -40,7 +41,7 @@ app_isNew2  <- function(token = '36F0DB19-AC55-4062-B2DA-39DC39B297BE',app_name 
   }else{
     res <- TRUE
   }
-
+  return(res)
 }
 
 #' 创建程序
