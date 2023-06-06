@@ -11,7 +11,7 @@
 #' userPassword_reset()
 userPassword_reset <- function(token = '36F0DB19-AC55-4062-B2DA-39DC39B297BE',FappId ='jhdms',Fuser ='马斌') {
 
-  sql <- paste0("update a set a.Fpassword='faf6db350ba0347de5915f134dd6df2'    FROM t_md_userRight a
+  sql <- paste0("update a set a.Fpassword='5faf6db350ba0347de5915f134dd6df2'    FROM t_md_userRight a
 where FappId ='",FappId,"' and Fuser ='",Fuser,"'")
   tsda::sql_update2(token =token ,sql_str = sql)
 
