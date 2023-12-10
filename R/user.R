@@ -109,12 +109,74 @@ where FappId ='",FappId,"'")
 
     res = tsda::sql_select2(token =token,sql = sql_all )
 
+
   }else{
     res = userInfo
   }
 
   return(res)
 
+
+
+}
+
+
+#' 插入用户数据判断
+#'
+#' @param token 口令
+#' @param FappId 程序ID
+#' @param Fuser 用户
+#'
+#' @return 返回列表
+#' @export
+#'
+#' @examples
+#' userType_check()
+userType_check <- function(token = '36F0DB19-AC55-4062-B2DA-39DC39B297BE',FappId ='rdsdms',Fuser ='朱琼'){
+
+  sql <- paste0("select Fpermissions,Fcompany,FCompanyScope,FDataScope  from rds_vw_md_userInfo2
+where FappId = '",FappId,"' and Fuser='",Fuser,"'")
+  data = tsda::sql_select2(token = token,sql = sql)
+  ncount = nrow(data)
+  if(ncount){
+    if(tsdo::left(data$Fpermissions,2) == '客户'){
+      res = list(status='customer',data=data$Fcompany,dataScope = data$FDataScope)
+    }else{
+      res = list(status='rds',data='1')
+    }
+  }else{
+     res = list(status='rds',data='-1')
+}
+  return(res)
+
+}
+
+
+
+#' 用户格式化列表
+#'
+#' @param token 口令
+#' @param FappId 程序
+#' @param groups 分组
+#'
+#' @return 返回列表
+#' @export
+#'
+#' @examples
+#' userGroup_formatter()
+userGroup_formatter <- function(token = '36F0DB19-AC55-4062-B2DA-39DC39B297BE',FappId ='rdsdms',groups){
+
+  group_sql = tsdo::sql_str(groups)
+  sql <- paste0("select  Fuser,Fpermissions  from rds_vw_md_userInfo2
+where FappId ='",FappId,"' and Fuser in (",group_sql,")")
+  data = tsda::sql_select2(token = token,sql = sql)
+  ncount = nrow(data)
+  if(ncount){
+    data$srcImg <- 'rds.png'
+    data[tsdo::left(data$Fpermissions,2) =='客户','srcImg'] <-'customer.png'
+    res = data.frame(id=data$Fuser,content=paste0("<img src = '",data$srcImg,"',height='20',width='20'>",data$Fuser,"</img>"))
+    return(res)
+     }
 
 
 }
