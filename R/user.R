@@ -180,3 +180,35 @@ where FappId ='",FappId,"' and Fuser in (",group_sql,")")
 
 
 }
+
+
+
+
+
+
+#' 查询用户邮箱
+#'
+#' @param token 口令
+#' @param FappId 程序ID
+#' @param Fuser 用户名
+#'
+#' @return 返回值
+#' @export
+#'
+#' @examples
+#' userPassword_reset()
+userMail_query <- function(token = '36F0DB19-AC55-4062-B2DA-39DC39B297BE',FappId ='jhdms',Fuser ='马斌') {
+
+  sql <- paste0("select Fvalue from t_md_userInfo where Fkey='Femail' and FappId='",FappId,"' and Fuser='",Fuser,"'
+and Fvalue <>'dms@jaour.com'")
+  data = tsda::sql_select2(token =token ,sql = sql)
+  ncount = nrow(data)
+  if (ncount){
+    res = data$Fvalue[1]
+  }else{
+    res = NULL
+  }
+  return(res)
+
+
+}
